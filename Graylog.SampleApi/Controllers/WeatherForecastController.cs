@@ -29,14 +29,15 @@ namespace Graylog.SampleApi.Controllers
         {
             var rng = new Random();
             var array = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                {
+                    Date = DateTime.Now.AddDays(index),
+                    TemperatureC = rng.Next(-20, 55),
+                    Summary = Summaries[rng.Next(Summaries.Length)]
+                })
+                .ToArray();
 
-            _logger.LogInformation(array[0].SerializeToJson());
+            _logger.LogInformation("{JsonAll}", array.SerializeToJson());
+            _logger.LogInformation("{JsonFirst}", array[0].SerializeToJson());
 
             return array;
         }
@@ -44,10 +45,14 @@ namespace Graylog.SampleApi.Controllers
 
     public static class ObjectExtensions
     {
-        public static string SerializeToJson<T>(this T serialize) {
-            try {
+        public static string SerializeToJson<T>(this T serialize)
+        {
+            try
+            {
                 return JsonConvert.SerializeObject(serialize);
-            } catch {
+            }
+            catch
+            {
                 return string.Empty;
             }
         }
