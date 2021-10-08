@@ -3,7 +3,6 @@ using System.Reflection;
 using Gelf.Extensions.Logging;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using NLog.Web;
 
 namespace Graylog.SampleApi
 {
