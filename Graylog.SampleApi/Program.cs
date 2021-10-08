@@ -25,8 +25,7 @@ namespace Graylog.SampleApi
                     options.LogSource = context.HostingEnvironment.ApplicationName;
                     options.AdditionalFields["machine_name"] = Environment.MachineName;
                     options.AdditionalFields["app_version"] = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
-                }))
-                .UseNLog(); // NLog: Setup NLog for Dependency injection;
+                }));
         }
     }
 }

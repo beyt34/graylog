@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Newtonsoft.Json;
 
 namespace Graylog.SampleApi.Controllers
@@ -21,12 +22,32 @@ namespace Graylog.SampleApi.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _logger.LogInformation("WeatherForecast Constructor....");
+            
+            Thread.Sleep(100);
+            _logger.LogTrace("ctor LogTrace...");
+
+            Thread.Sleep(100);
+            _logger.LogDebug("ctor LogDebug...");
+
+            Thread.Sleep(100);
+            _logger.LogInformation("ctor LogInformation...");
+
+            Thread.Sleep(100);
+            _logger.LogWarning("ctor LogWarning...");
+
+            Thread.Sleep(100);
+            _logger.LogError("ctor LogError...");
+
+            Thread.Sleep(100);
+            _logger.LogCritical("ctor LogCritical...");
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            Thread.Sleep(100);
+            _logger.LogInformation("Get Start");
+            
             var rng = new Random();
             var array = Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
@@ -36,9 +57,12 @@ namespace Graylog.SampleApi.Controllers
                 })
                 .ToArray();
 
-            _logger.LogInformation("{JsonAll}", array.SerializeToJson());
+            Thread.Sleep(100);
             _logger.LogInformation("{JsonFirst}", array[0].SerializeToJson());
 
+            Thread.Sleep(100);
+            _logger.LogInformation("Get End");
+            
             return array;
         }
     }
